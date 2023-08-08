@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, GradientImageDirection) {
  *  @param percents          渐变颜色的占比数组
  *  @param gradientDirection     渐变色的类型
  */
-+ (UIImage *)getGradientImageWithSize:(CGSize)imageSize gradientColors:(NSArray <UIColor *>*)gradientColors percents:(NSArray <NSNumber *>*)percents gradientDirection:(GradientImageDirection)gradientDirection;
++ (UIImage *)getGradientImageWithSize:(CGSize)imageSize gradientColors:(NSArray <UIColor *>*)gradientColors percents:(NSArray <NSNumber *>* _Nullable)percents gradientDirection:(GradientImageDirection)gradientDirection;
 
 @end
 

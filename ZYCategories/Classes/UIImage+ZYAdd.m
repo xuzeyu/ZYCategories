@@ -28,27 +28,26 @@
     return newimg;
 }
 
-+ (UIImage *)getGradientImageWithSize:(CGSize)imageSize gradientColors:(NSArray <UIColor *>*)gradientColors percents:(NSArray <NSNumber *>*)percents gradientDirection:(GradientImageDirection)gradientDirection {
++ (UIImage *)getGradientImageWithSize:(CGSize)imageSize gradientColors:(NSArray <UIColor *>*)gradientColors percents:(NSArray <NSNumber *>* _Nullable)percents gradientDirection:(GradientImageDirection)gradientDirection {
     
     NSMutableArray *ar = [NSMutableArray array];
     for(UIColor *c in gradientColors) {
         [ar addObject:(id)c.CGColor];
     }
     
-//    NSUInteger capacity = percents.count;
-//    CGFloat locations[capacity];
     NSInteger percentsCount = percents.count;
     CGFloat locations[percentsCount];
-    for (int i = 0; i < percentsCount; i++) {
-        locations[i] = [percents[i] floatValue];
+    if (percentsCount > 0) {
+        for (int i = 0; i < percentsCount; i++) {
+            locations[i] = [percents[i] floatValue];
+        }
     }
-    
     
     UIGraphicsBeginImageContextWithOptions(imageSize, YES, 1);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGColorSpaceRef colorSpace = CGColorGetColorSpace([[gradientColors lastObject] CGColor]);
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)ar, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)ar, percentsCount > 0 ?locations:NULL);
     CGPoint start;
     CGPoint end;
     switch (gradientDirection) {

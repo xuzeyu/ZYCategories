@@ -18,16 +18,18 @@
      return [objc_getAssociatedObject(self, @selector(isSelected)) boolValue];
 }
 
-- (void)setValue:(id)value {
-    objc_setAssociatedObject(self, @selector(value), value, OBJC_ASSOCIATION_ASSIGN);
+- (void)setObjValue:(id)objValue {
+    if (![objValue isKindOfClass:[NSNull class]]) {
+        objc_setAssociatedObject(self, @selector(objValue), objValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
 }
 
-- (id)value {
-     return objc_getAssociatedObject(self, @selector(value));
+- (id)objValue {
+     return objc_getAssociatedObject(self, @selector(objValue));
 }
 
 - (void)setTagString:(NSString *)tagString {
-    objc_setAssociatedObject(self, @selector(tagString), tagString, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(tagString), tagString, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSString *)tagString {
